@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Golden Phoenix — Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#D9A441; --gold-soft:#E9C77B; --fire:#E0702A; --petrol:#0F2A33; --petrol-2:#1C4250;
+  --crimson:#9E1F1F; --rice:#F4ECDD; --ink:#1A1410; --muted:#8C7B66; --line:rgba(217,164,65,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:'Inter',system-ui,sans-serif; color:var(--rice); min-height:100vh;
+  background:radial-gradient(ellipse at 30% 0%, var(--petrol-2) 0%, var(--petrol) 55%, #08181e 100%) fixed;
+  line-height:1.5;
+}
+.wrap{max-width:720px;margin:0 auto;padding:56px 16px 80px}
+header{text-align:center;margin-bottom:22px}
+.kicker{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+h1{font-family:'Cinzel',serif;font-weight:600;color:var(--gold);font-size:clamp(26px,6vw,38px);letter-spacing:.05em;margin:10px 0 4px}
+.sub{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-soft);font-size:20px;margin:0}
+.thread{height:2px;margin:18px auto;max-width:420px;background:linear-gradient(90deg,transparent,var(--gold) 15%,var(--gold-soft) 50%,var(--gold) 85%,transparent)}
+.seal{display:inline-flex;flex-direction:column;background:var(--crimson);color:#f6e3c8;font-family:serif;font-weight:600;border-radius:4px;padding:4px 6px;font-size:15px;line-height:1.05}
+.lang{position:fixed;top:12px;right:12px;display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(8,24,30,.7);z-index:5}
+.lang button{background:none;border:0;color:var(--rice);padding:6px 12px;font:500 12px Inter;cursor:pointer;letter-spacing:.08em}
+.lang button.on{background:var(--gold);color:var(--ink)}
+.progress{height:4px;background:rgba(244,236,221,.12);border-radius:4px;overflow:hidden;margin:6px 0 4px}
+.progress div{height:100%;background:linear-gradient(90deg,var(--gold),var(--fire));width:0;transition:width .35s}
+.steplabel{font-size:12px;color:var(--gold-soft);opacity:.85;text-align:right}
+.card{background:rgba(8,24,30,.55);border:1px solid var(--line);border-radius:10px;padding:22px 20px;margin-top:14px}
+h2{font-family:'Cinzel',serif;font-weight:600;color:var(--gold);font-size:22px;margin:0 0 6px;letter-spacing:.03em}
+.intro{color:var(--rice);opacity:.85;font-size:14.5px;margin:0 0 6px}
+.q{margin-top:22px}
+.q label.t{display:block;font-weight:500;font-size:15px;margin-bottom:8px}
+.q .hint{display:block;font-size:12.5px;opacity:.65;margin:-4px 0 8px}
+input[type=text],input[type=email],input[type=url],textarea{
+  width:100%;background:rgba(244,236,221,.06);border:1px solid rgba(244,236,221,.22);border-radius:8px;
+  color:var(--rice);font:15px Inter;padding:11px 12px;outline:none;transition:border .2s}
+textarea{min-height:92px;resize:vertical}
+input:focus,textarea:focus{border-color:var(--gold)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt span{display:inline-block;border:1px solid rgba(244,236,221,.25);border-radius:999px;padding:8px 14px;font-size:14px;cursor:pointer;transition:all .15s;user-select:none}
+.opt input:checked+span{background:var(--gold);color:var(--ink);border-color:var(--gold);font-weight:500}
+.opt input:focus-visible+span{outline:2px solid var(--gold-soft);outline-offset:2px}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.btn{border:1px solid var(--gold);background:none;color:var(--gold);padding:12px 20px;border-radius:8px;font:600 14px Inter;letter-spacing:.04em;cursor:pointer}
+.btn.primary{background:var(--gold);color:var(--ink)}
+.btn.wa{background:#25D366;border-color:#25D366;color:#06281a}
+.btn:disabled{opacity:.35;cursor:default}
+.review{white-space:pre-wrap;font-size:13.5px;background:rgba(244,236,221,.06);border-radius:8px;padding:14px;max-height:360px;overflow:auto;border:1px solid rgba(244,236,221,.15)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.note{font-size:12.5px;opacity:.7;margin-top:12px}
+.verse{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-soft);font-size:19px;text-align:center;margin:26px 0 0}
+.saved{font-size:12px;color:var(--gold-soft);opacity:0;transition:opacity .3s;text-align:center;margin-top:8px}
+.saved.on{opacity:.8}
+@media (max-width:480px){.card{padding:18px 14px}.btn{padding:12px 14px}}
+</style>
+</head>
+<body>
+<div class="lang" role="group" aria-label="Language">
+  <button type="button" data-l="en" class="on">EN</button>
+  <button type="button" data-l="es">ES</button>
+</div>
+
+<div class="wrap">
+  <header>
+    <div class="kicker" data-i="kicker"></div>
+    <h1>GOLDEN PHOENIX</h1>
+    <p class="sub" data-i="sub"></p>
+    <div class="thread"></div>
+  </header>
+
+  <div class="progress" aria-hidden="true"><div id="bar"></div></div>
+  <div class="steplabel" id="steplabel"></div>
+
+  <form id="form" class="card" novalidate></form>
+  <div class="saved" id="saved" data-i="saved"></div>
+
+  <p class="verse">“Find the thread that still holds.”</p>
+</div>
+
+<script>
+/* ===== CONFIG ===== */
+const WHATSAPP_NUMBER = "529841399317"; // formato internacional sin "+" ni espacios, ej. 529841234567
+const STORE_KEY = "gp-onboarding-v1";
+
+const UI = {
+  en:{kicker:"Onboarding · Tenzin Norbu",sub:"A few questions before we begin",saved:"Progress saved on this device",
+      next:"Next",back:"Back",step:"Step",of:"of",review:"Review & send",
+      reviewIntro:"Here is a summary of your answers. When you tap the green button, WhatsApp will open with everything written — you only need to press send.",
+      wa:"Send via WhatsApp",copy:"Copy answers",dl:"Download .txt",copied:"Copied ✓",
+      note:"If WhatsApp doesn’t open or the message is cut, use “Copy answers” and paste it in the chat.",
+      other:"Other",yes:"Yes",no:"No",maybe:"Maybe",notsure:"Not sure",discuss:"Let’s discuss"},
+  es:{kicker:"Onboarding · Tenzin Norbu",sub:"Unas preguntas antes de empezar",saved:"Avance guardado en este dispositivo",
+      next:"Siguiente",back:"Atrás",step:"Paso",of:"de",review:"Revisar y enviar",
+      reviewIntro:"Este es el resumen de tus respuestas. Al tocar el botón verde se abrirá WhatsApp con todo escrito; solo tienes que darle enviar.",
+      wa:"Enviar por WhatsApp",copy:"Copiar respuestas",dl:"Descargar .txt",copied:"Copiado ✓",
+      note:"Si WhatsApp no abre o el mensaje se corta, usa “Copiar respuestas” y pégalo en el chat.",
+      other:"Otro",yes:"Sí",no:"No",maybe:"Tal vez",notsure:"No estoy seguro",discuss:"Lo platicamos"}
+};
+
+/* type: text | email | url | area | radio | check.  es_label = etiqueta que llega a WhatsApp (siempre en español) */
+const STEPS = [
+ {title:{en:"About you",es:"Sobre ustedes"},
+  intro:{en:"Thank you for trusting us with Golden Phoenix. This takes about 10 minutes. Nothing is required — skip anything you’d rather talk about in person.",
+         es:"Gracias por confiarnos Golden Phoenix. Toma unos 10 minutos. Nada es obligatorio: salta lo que prefieras platicar en persona."},
+  qs:[
+   {id:"name",type:"text",l:{en:"Your name(s)",es:"Nombre(s)"},wa:"Nombre"},
+   {id:"email",type:"email",l:{en:"Best email",es:"Correo"},wa:"Correo"},
+   {id:"phone",type:"text",l:{en:"WhatsApp / phone",es:"WhatsApp / teléfono"},wa:"Teléfono"},
+   {id:"approver",type:"radio",l:{en:"Who approves each post?",es:"¿Quién aprueba cada publicación?"},wa:"Aprueba publicaciones",
+    o:[{en:"Terrence",es:"Terrence"},{en:"Zuly",es:"Zuly"},{en:"Both",es:"Los dos"}]}
+  ]},
+ {title:{en:"Goals",es:"Objetivos"},
+  qs:[
+   {id:"success",type:"check",l:{en:"What would success look like in 6 months?",es:"¿Qué sería un éxito en 6 meses?"},h:{en:"Choose all that apply",es:"Elige todas las que apliquen"},wa:"Éxito en 6 meses",
+    o:[{en:"More readers",es:"Más lectores"},{en:"A community around the book",es:"Una comunidad alrededor del libro"},{en:"Sales",es:"Ventas"},{en:"Reviews",es:"Reseñas"},{en:"Recognition / prestige",es:"Reconocimiento / prestigio"},{en:"Events & readings",es:"Eventos y lecturas"}]},
+   {id:"success_more",type:"area",l:{en:"In your own words",es:"En tus palabras"},wa:"Éxito (detalle)"},
+   {id:"language",type:"radio",l:{en:"Priority language",es:"Idioma prioritario"},wa:"Idioma prioritario",
+    o:[{en:"English",es:"Inglés"},{en:"Spanish",es:"Español"},{en:"Chinese",es:"Chino"},{en:"All equally",es:"Todos por igual"}]},
+   {id:"budget",type:"radio",l:{en:"Is there an advertising budget beyond Publishing Spot?",es:"¿Hay presupuesto de publicidad aparte de Publishing Spot?"},wa:"Presupuesto extra de pauta",
+    o:[{en:"Yes",es:"Sí"},{en:"No",es:"No"},{en:"Not sure",es:"No estoy seguro"}]},
+   {id:"budget_more",type:"text",l:{en:"If yes, approximate monthly amount",es:"Si sí, monto mensual aproximado"},wa:"Monto mensual"}
+  ]},
+ {title:{en:"Accounts & links",es:"Cuentas y enlaces"},
+  qs:[
+   {id:"socials",type:"area",l:{en:"Social accounts that already exist",es:"Redes sociales que ya existen"},h:{en:"Platform + username, e.g. Instagram @...",es:"Plataforma + usuario, ej. Instagram @..."},wa:"Redes existentes"},
+   {id:"manager",type:"text",l:{en:"Who manages them today?",es:"¿Quién las maneja hoy?"},wa:"Quién las maneja"},
+   {id:"website",type:"url",l:{en:"Author website",es:"Sitio web del autor"},wa:"Sitio web"},
+   {id:"goodreads",type:"url",l:{en:"Goodreads / Amazon author page",es:"Goodreads / página de autor en Amazon"},wa:"Goodreads / Amazon"}
+  ]},
+ {title:{en:"Voice & camera",es:"Voz y cámara"},
+  intro:{en:"Our first idea for the brand is “Only the voice is known”, inspired by Tiān Fāng: the author is present through his voice, hands, the thread and the landscapes of Tulum — not his face.",
+         es:"Nuestra primera idea de marca es “Only the voice is known”, inspirada en Tiān Fāng: el autor está presente con su voz, sus manos, el hilo y los paisajes de Tulum, no con su rostro."},
+  qs:[
+   {id:"voice",type:"radio",l:{en:"Would you record your voice reading the poem?",es:"¿Grabarías tu voz leyendo el poema?"},wa:"Grabar su voz",
+    o:[{en:"Yes",es:"Sí"},{en:"Maybe",es:"Tal vez"},{en:"No",es:"No"}]},
+   {id:"camera",type:"radio",l:{en:"Would you appear on camera on YouTube?",es:"¿Aparecerías a cámara en YouTube?"},wa:"Aparecer en YouTube",
+    o:[{en:"Yes",es:"Sí"},{en:"Maybe",es:"Tal vez"},{en:"No",es:"No"}]},
+   {id:"idea",type:"area",l:{en:"How does “Only the voice is known” feel to you?",es:"¿Qué te parece “Only the voice is known”?"},wa:"Opinión sobre la idea de marca"},
+   {id:"seal",type:"radio",l:{en:"May we use 天樞 (from your Chinese name) as the brand’s red seal?",es:"¿Podemos usar 天樞 (de tu nombre chino) como sello rojo de la marca?"},wa:"Sello 天樞",
+    o:[{en:"Yes",es:"Sí"},{en:"No",es:"No"},{en:"Let’s discuss",es:"Lo platicamos"}]},
+   {id:"session",type:"text",l:{en:"Availability for a half-day video session in Tulum",es:"Disponibilidad para una sesión de video de medio día en Tulum"},h:{en:"Dates or days of the week",es:"Fechas o días de la semana"},wa:"Disponibilidad sesión Tulum"}
+  ]},
+ {title:{en:"The work",es:"La obra"},
+  qs:[
+   {id:"spanish",type:"radio",l:{en:"Spanish edition status",es:"Estado de la edición en español"},wa:"Edición en español",
+    o:[{en:"Translated & reviewed",es:"Traducida y revisada"},{en:"Translated, not reviewed",es:"Traducida, sin revisar"},{en:"In progress",es:"En proceso"},{en:"Not planned yet",es:"Aún no planeada"}]},
+   {id:"spanish_date",type:"text",l:{en:"Ideal release date / publisher for Spanish",es:"Fecha ideal / editorial para el español"},wa:"Fecha/editorial español"},
+   {id:"audio",type:"text",l:{en:"Audiobook: status and languages",es:"Audiolibro: estado e idiomas"},wa:"Audiolibro"},
+   {id:"favorites",type:"area",l:{en:"Your 5 favorite cantos or verses",es:"Tus 5 cantos o versos favoritos"},wa:"Cantos/versos favoritos"},
+   {id:"qinguan",type:"radio",l:{en:"Can we quote your translation of Qín Guàn’s poem on social media?",es:"¿Podemos citar en redes tu traducción del poema de Qín Guàn?"},wa:"Citar Qín Guàn",
+    o:[{en:"Yes",es:"Sí"},{en:"No",es:"No"},{en:"Not sure",es:"No estoy seguro"}]}
+  ]},
+ {title:{en:"Sensitive topics",es:"Temas delicados"},
+  intro:{en:"These help us protect the work and your voice.",es:"Nos ayudan a cuidar la obra y tu voz."},
+  qs:[
+   {id:"ai",type:"radio",l:{en:"Your afterword mentions working with AI. If someone asks, how should we respond?",es:"Tu epílogo menciona el trabajo con IA. Si alguien pregunta, ¿cómo respondemos?"},wa:"Postura sobre IA",
+    o:[{en:"Openly, as in the afterword",es:"Abiertamente, como en el epílogo"},{en:"Only if asked directly",es:"Solo si preguntan directamente"},{en:"Let’s discuss",es:"Lo platicamos"}]},
+   {id:"avoid",type:"check",l:{en:"Topics to avoid on social media",es:"Temas a evitar en redes"},wa:"Temas a evitar",
+    o:[{en:"Politics",es:"Política"},{en:"Abuse / violence",es:"Abuso / violencia"},{en:"Religion",es:"Religión"},{en:"Specific countries",es:"Países específicos"}]},
+   {id:"avoid_more",type:"text",l:{en:"Anything else we should never say or do?",es:"¿Algo más que nunca debamos decir o hacer?"},wa:"Nunca decir/hacer"},
+   {id:"people",type:"area",l:{en:"Fang Bai, Shui Jing and Laura: should they appear or stay private?",es:"Fang Bai, Shui Jing y Laura: ¿deben aparecer o mantenerse en privado?"},wa:"Visibilidad de personas"}
+  ]},
+ {title:{en:"Readers & community",es:"Lectores y comunidad"},
+  qs:[
+   {id:"reader",type:"area",l:{en:"Who is your ideal reader?",es:"¿Quién es tu lector ideal?"},wa:"Lector ideal"},
+   {id:"tulum",type:"area",l:{en:"Contacts in Tulum for readings (meditation centers, bookshops, retreats)",es:"Contactos en Tulum para lecturas (centros de meditación, librerías, retiros)"},wa:"Contactos en Tulum"},
+   {id:"reviews",type:"radio",l:{en:"Do you have reader reviews or messages we could share (with permission)?",es:"¿Tienes reseñas o mensajes de lectores que podamos compartir (con permiso)?"},wa:"Reseñas disponibles",
+    o:[{en:"Yes",es:"Sí"},{en:"No",es:"No"},{en:"A few",es:"Algunas"}]}
+  ]},
+ {title:{en:"Materials",es:"Materiales"},
+  intro:{en:"Which of these can you send us before the session?",es:"¿Cuáles de estos nos puedes enviar antes de la sesión?"},
+  qs:[
+   {id:"materials",type:"check",l:{en:"I can send",es:"Puedo enviar"},wa:"Materiales que puede enviar",
+    o:[{en:"Author photos",es:"Fotos del autor"},{en:"Final covers (all editions)",es:"Portadas finales (todas las ediciones)"},{en:"Logo / cover font files",es:"Logo / tipografía de portada"},{en:"Bio in English & Spanish",es:"Bio en inglés y español"},{en:"Purchase links by edition",es:"Enlaces de compra por edición"},{en:"Spanish manuscript (editable)",es:"Manuscrito en español (editable)"},{en:"Reader testimonials",es:"Testimonios de lectores"},{en:"Publishing Spot calendar",es:"Calendario de Publishing Spot"},{en:"Account access invites",es:"Invitaciones de acceso a cuentas"}]},
+   {id:"final",type:"area",l:{en:"Anything else you’d like us to know?",es:"¿Algo más que quieras contarnos?"},wa:"Comentarios finales"}
+  ]}
+];
+
+/* ===== STATE ===== */
+let lang = "en", step = 0, data = {};
+try{ const s = JSON.parse(localStorage.getItem(STORE_KEY)||"null"); if(s){ data=s.data||{}; step=s.step||0; lang=s.lang||"en"; } }catch(e){}
+const save = () => { try{ localStorage.setItem(STORE_KEY, JSON.stringify({data,step,lang})); flash(); }catch(e){} };
+let ft; const flash=()=>{const el=document.getElementById('saved');el.classList.add('on');clearTimeout(ft);ft=setTimeout(()=>el.classList.remove('on'),1200)};
+const t = k => UI[lang][k];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ===== RENDER ===== */
+const form = document.getElementById('form');
+function render(){
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i]').forEach(el => el.textContent = t(el.dataset.i));
+  document.querySelectorAll('.lang button').forEach(b => b.classList.toggle('on', b.dataset.l===lang));
+  const total = STEPS.length + 1;
+  document.getElementById('bar').style.width = ((step+1)/total*100)+'%';
+  document.getElementById('steplabel').textContent = `${t('step')} ${step+1} ${t('of')} ${total}`;
+  step < STEPS.length ? renderStep() : renderReview();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function renderStep(){
+  const s = STEPS[step];
+  let h = `<h2>${s.title[lang]}</h2>`;
+  if(s.intro) h += `<p class="intro">${s.intro[lang]}</p>`;
+  s.qs.forEach(q => {
+    const v = data[q.id];
+    h += `<div class="q">`;
+    if(q.type==='radio'||q.type==='check'){
+      h += `<label class="t">${q.l[lang]}</label>`;
+      if(q.h) h += `<span class="hint">${q.h[lang]}</span>`;
+      h += `<div class="opts">` + q.o.map((o,i) => {
+        const val = o.es; const on = q.type==='radio' ? v===val : Array.isArray(v)&&v.includes(val);
+        return `<label class="opt"><input type="${q.type==='radio'?'radio':'checkbox'}" name="${q.id}" value="${esc(val)}" ${on?'checked':''}><span>${o[lang]}</span></label>`;
+      }).join('') + `</div>`;
+    } else {
+      h += `<label class="t" for="${q.id}">${q.l[lang]}</label>`;
+      if(q.h) h += `<span class="hint">${q.h[lang]}</span>`;
+      h += q.type==='area'
+        ? `<textarea id="${q.id}" name="${q.id}">${esc(v||'')}</textarea>`
+        : `<input id="${q.id}" name="${q.id}" type="${q.type}" value="${esc(v||'')}" autocomplete="off">`;
+    }
+    h += `</div>`;
+  });
+  h += `<div class="nav"><button type="button" class="btn" id="back" ${step===0?'disabled':''}>${t('back')}</button>
+        <button type="button" class="btn primary" id="next">${step===STEPS.length-1?t('review'):t('next')}</button></div>`;
+  form.innerHTML = h;
+  form.querySelectorAll('input,textarea').forEach(el => el.addEventListener('input', collect));
+  form.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(el => el.addEventListener('change', collect));
+  document.getElementById('back').onclick = () => { step--; save(); render(); };
+  document.getElementById('next').onclick = () => { step++; save(); render(); };
+}
+function collect(){
+  STEPS[step].qs.forEach(q => {
+    if(q.type==='radio'){ const c = form.querySelector(`input[name="${q.id}"]:checked`); data[q.id] = c?c.value:''; }
+    else if(q.type==='check'){ data[q.id] = [...form.querySelectorAll(`input[name="${q.id}"]:checked`)].map(i=>i.value); }
+    else { data[q.id] = form.querySelector(`[name="${q.id}"]`).value; }
+  });
+  save();
+}
+function buildMessage(){
+  let m = `*Golden Phoenix — Onboarding*\n(respondido en ${lang==='en'?'inglés':'español'})\n`;
+  STEPS.forEach((s,i) => {
+    const lines = s.qs.map(q => {
+      let v = data[q.id]; if(Array.isArray(v)) v = v.join(', ');
+      v = (v||'').trim(); return v ? `• ${q.wa}: ${v}` : null;
+    }).filter(Boolean);
+    if(lines.length) m += `\n*${i+1}. ${s.title.es}*\n` + lines.join('\n') + '\n';
+  });
+  return m.trim();
+}
+function renderReview(){
+  const msg = buildMessage();
+  form.innerHTML = `<h2>${t('review')}</h2><p class="intro">${t('reviewIntro')}</p>
+    <div class="review">${esc(msg)}</div>
+    <div class="actions">
+      <button type="button" class="btn wa" id="wa">${t('wa')}</button>
+      <button type="button" class="btn" id="copy">${t('copy')}</button>
+      <button type="button" class="btn" id="dl">${t('dl')}</button>
+    </div>
+    <p class="note">${t('note')}</p>
+    <div class="nav"><button type="button" class="btn" id="back">${t('back')}</button><span></span></div>`;
+  document.getElementById('back').onclick = () => { step--; save(); render(); };
+  document.getElementById('wa').onclick = () => {
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  };
+  document.getElementById('copy').onclick = async (e) => {
+    try{ await navigator.clipboard.writeText(msg); }catch(err){
+      const ta=document.createElement('textarea');ta.value=msg;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();
+    }
+    e.target.textContent = t('copied');
+  };
+  document.getElementById('dl').onclick = () => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([msg.replace(/\*/g,'')],{type:'text/plain'}));
+    a.download = 'golden-phoenix-onboarding.txt'; a.click();
+  };
+}
+document.querySelectorAll('.lang button').forEach(b => b.onclick = () => { lang = b.dataset.l; save(); render(); });
+render();
+</script>
+</body>
+</html>
