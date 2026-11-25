@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Onboarding · Campaña Ads Asesorías Isapre</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0A0A;--card:#141414;--line:#262626;--lime:#C6FF3D;--lime-d:#9FD11F;--txt:#F2F2F2;--muted:#9A9A9A;--wa:#25D366}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:'Inter',system-ui,sans-serif;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:28px 18px 60px}
+.kicker{color:var(--lime);font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+h1{font-size:clamp(26px,6vw,36px);font-weight:800;margin:8px 0 6px;line-height:1.1}
+.sub{color:var(--muted);margin:0 0 18px}
+.bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin:16px 0 6px}
+.bar i{display:block;height:100%;background:var(--lime);transition:width .3s}
+.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+h2{margin:0 0 6px;font-size:22px}
+.intro{color:var(--muted);margin:0 0 18px;font-size:15px;line-height:1.5}
+.q{margin:0 0 20px}
+.q label.l{display:block;font-weight:600;margin-bottom:4px;font-size:15px}
+.q .h{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}
+input[type=text],input[type=email],input[type=url],input[type=number],textarea{width:100%;background:#0E0E0E;border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:12px;font:inherit;font-size:15px}
+textarea{min-height:88px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--lime)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts label{display:flex;align-items:center;gap:8px;background:#0E0E0E;border:1px solid var(--line);border-radius:99px;padding:9px 14px;cursor:pointer;font-size:14px}
+.opts input{accent-color:var(--lime)}
+.opts label:has(input:checked){border-color:var(--lime);background:rgba(198,255,61,.08)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:8px}
+.btn{background:transparent;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:12px 18px;font:inherit;font-weight:600;cursor:pointer}
+.btn.p{background:var(--lime);color:#0A0A0A;border-color:var(--lime)}
+.btn.wa{background:var(--wa);border-color:var(--wa);color:#04210f}
+.review{white-space:pre-wrap;background:#0E0E0E;border:1px solid var(--line);border-radius:10px;padding:14px;font-size:13px;max-height:380px;overflow:auto;line-height:1.5}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 6px}
+.note{color:var(--muted);font-size:13px}
+.saved{color:var(--muted);font-size:12px;text-align:center;margin-top:14px}
+.foot{color:#555;font-size:12px;text-align:center;margin-top:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Onboarding · Aether Agency</div>
+  <h1>Campaña de Ads · Asesorías Integrales de Isapre</h1>
+  <p class="sub">Con esto construimos la estrategia, los guiones y la pauta. Toma 20–25 minutos.</p>
+  <div class="bar"><i id="bar"></i></div>
+  <div class="meta"><span id="stepinfo"></span><span id="pct"></span></div>
+  <form class="card" id="form" onsubmit="return false"></form>
+  <p class="saved">Tu avance se guarda automáticamente en este dispositivo.</p>
+  <p class="foot">Aether Agency · @feli.productor</p>
+</div>
+
+<script>
+/* ===== CONFIG ===== */
+const WHATSAPP_NUMBER = "5219841399317"; // formato internacional sin "+" ni espacios
+const STORE_KEY = "isapre-onboarding-v1";
+const TITLE = "Asesorías Integrales Isapre — Onboarding Ads";
+
+/* type: text | area | radio | check | num.  wa = etiqueta corta que llega a WhatsApp */
+const STEPS = [
+ {title:"Datos básicos",
+  intro:"Nada es obligatorio. Si algo prefieres conversarlo en llamada, déjalo en blanco. Mientras más concreto, mejor sale la campaña.",
+  qs:[
+   {id:"brand",type:"text",l:"Nombre de la marca / empresa",wa:"Marca"},
+   {id:"contact",type:"text",l:"Nombre de quien responde y cargo",wa:"Responde"},
+   {id:"phone",type:"text",l:"WhatsApp de contacto",wa:"WhatsApp"},
+   {id:"links",type:"area",l:"Links: web, Instagram, Facebook, TikTok, Google Maps",wa:"Links"},
+   {id:"years",type:"text",l:"¿Hace cuánto tiempo asesoran? ¿Cuántas afiliaciones llevan en total (aprox.)?",wa:"Trayectoria"}
+  ]},
+ {title:"Modelo de negocio",
+  intro:"Esto define qué podemos prometer en los anuncios y cuánto podemos pagar por cada lead.",
+  qs:[
+   {id:"agent",type:"radio",l:"¿Los asesores están inscritos en el Registro de Agentes de Ventas de la Superintendencia de Salud?",wa:"Registro Superintendencia",
+    o:["Sí, todos","Algunos","No","No sé"]},
+   {id:"isapres",type:"check",l:"¿Con qué isapres pueden afiliar?",h:"Marca todas",wa:"Isapres con las que trabajan",
+    o:["Colmena","Banmédica","Consalud","Cruz Blanca","Nueva Masvida","Vida Tres","Esencial","Otra"]},
+   {id:"multi",type:"radio",l:"¿Comparan entre varias isapres o venden principalmente una?",wa:"Multi-isapre",
+    o:["Comparamos entre varias","Principalmente una","Depende del cliente"]},
+   {id:"revenue",type:"check",l:"¿Cómo ganan dinero?",wa:"Fuente de ingreso",
+    o:["Comisión de la isapre","Cobro al cliente","Seguros complementarios","Convenios con empresas","Otro"]},
+   {id:"free",type:"radio",l:"¿La asesoría es gratis para el cliente?",wa:"Asesoría gratis",o:["Sí, 100% gratis","No, se cobra","Depende"]},
+   {id:"comm",type:"text",l:"Ingreso promedio por cada afiliación cerrada (CLP o UF)",h:"Clave para calcular el costo por lead máximo",wa:"Ingreso por afiliación"},
+   {id:"clawback",type:"area",l:"¿La comisión tiene condiciones? (permanencia mínima, devolución si el cliente se va, pagos en cuotas)",wa:"Condiciones comisión"},
+   {id:"team",type:"text",l:"¿Cuántos asesores atienden leads? ¿Cuántos leads nuevos por día pueden atender bien?",wa:"Equipo y capacidad"},
+   {id:"geo",type:"check",l:"¿Dónde pueden atender?",wa:"Cobertura",
+    o:["Todo Chile online","Región Metropolitana","Valparaíso","Biobío","Antofagasta","Otras regiones","Presencial con oficina"]}
+  ]},
+ {title:"El servicio",
+  qs:[
+   {id:"service",type:"area",l:"Describe el servicio paso a paso: desde que el cliente escribe hasta que queda afiliado",wa:"Proceso del servicio"},
+   {id:"time",type:"text",l:"¿Cuánto demora el proceso completo? (días)",wa:"Duración proceso"},
+   {id:"segments",type:"check",l:"¿Qué casos atienden?",wa:"Casos que atienden",
+    o:["Fonasa que quiere pasar a isapre","Cambio de isapre a isapre","Le subieron el plan (carta de alza)","Bajar el costo del plan actual","Agregar cargas / familia","Embarazo o planificación familiar","Independientes / boleta de honorarios","Pensionados","Convenios para empresas","Seguros complementarios para Fonasa"]},
+   {id:"main_seg",type:"text",l:"De esos, ¿cuál es el caso que más quieren vender y por qué?",wa:"Caso prioritario"},
+   {id:"diff",type:"area",l:"¿Por qué elegirlos a ustedes y no a un ejecutivo de isapre o a un comparador online (QuePlan, QuVi)?",wa:"Diferenciador"},
+   {id:"guarantee",type:"area",l:"¿Ofrecen alguna garantía o acompañamiento post-venta? (revisión anual, ayuda con reembolsos, GES/CAEC)",wa:"Garantía / post-venta"},
+   {id:"extras",type:"area",l:"¿Hay algún beneficio extra que puedan ofrecer en los anuncios? (bono, evaluación gratis, descuento por convenio)",wa:"Beneficios ofertables"}
+  ]},
+ {title:"Cliente ideal",
+  intro:"Pensemos en el cliente que más dinero les deja y menos problemas les da.",
+  qs:[
+   {id:"age",type:"check",l:"Rango de edad del cliente ideal",wa:"Edad ideal",o:["20–29","30–39","40–49","50–59","60+"]},
+   {id:"income",type:"text",l:"Renta imponible mínima para que les sirva un cliente (CLP)",h:"Bajo esa renta el 7% no alcanza para un plan",wa:"Renta mínima"},
+   {id:"worker",type:"check",l:"Tipo de trabajador",wa:"Tipo trabajador",o:["Dependiente con contrato","Independiente / honorarios","Empresario / dueño","Funcionario público","Pensionado"]},
+   {id:"family",type:"check",l:"Composición familiar",wa:"Familia",o:["Soltero/a","Pareja sin hijos","Familia con hijos","Mujer en edad fértil"]},
+   {id:"pain",type:"area",l:"¿Qué dice el cliente en el primer mensaje? Copia frases textuales si puedes",wa:"Frases del cliente"},
+   {id:"objections",type:"area",l:"Las 3–5 objeciones más comunes y cómo las responden",wa:"Objeciones"},
+   {id:"bad_fit",type:"area",l:"¿Qué clientes NO les sirven? (renta baja, preexistencias, edad, región)",wa:"No calificados"},
+   {id:"best_case",type:"area",l:"Cuéntanos 2–3 casos reales de éxito (antes/después en precio o cobertura)",wa:"Casos de éxito"}
+  ]},
+ {title:"Números y metas",
+  intro:"Sin estos números no podemos fijar presupuesto ni KPIs reales.",
+  qs:[
+   {id:"leads_now",type:"text",l:"¿Cuántos leads reciben hoy al mes y de dónde vienen?",wa:"Leads actuales"},
+   {id:"close",type:"text",l:"De cada 10 personas que escriben, ¿cuántas terminan afiliadas?",wa:"Tasa de cierre"},
+   {id:"goal",type:"text",l:"Meta de afiliaciones por mes con la campaña",wa:"Meta afiliaciones/mes"},
+   {id:"budget",type:"radio",l:"Presupuesto mensual para pauta (aparte de nuestros honorarios)",wa:"Presupuesto pauta",
+    o:["Menos de $300.000 CLP","$300.000–$600.000","$600.000–$1.200.000","$1.200.000–$2.500.000","Más de $2.500.000","Por definir"]},
+   {id:"cpl",type:"text",l:"¿Cuánto estarían dispuestos a pagar por un lead calificado? (si lo saben)",wa:"CPL aceptable"},
+   {id:"season",type:"area",l:"¿En qué meses venden más? ¿Notan el efecto de las cartas de alza (marzo–mayo)?",wa:"Estacionalidad"},
+   {id:"start",type:"text",l:"¿Para cuándo quieren la campaña al aire?",wa:"Fecha de inicio"}
+  ]},
+ {title:"Ventas y atención",
+  qs:[
+   {id:"channel",type:"check",l:"¿Por dónde prefieren recibir los leads?",wa:"Canal de leads",
+    o:["WhatsApp directo","Formulario de Meta","Landing page","Llamada","DM de Instagram"]},
+   {id:"response",type:"text",l:"Tiempo real de respuesta a un lead nuevo",h:"En isapres, responder en <5 minutos cambia todo",wa:"Tiempo de respuesta"},
+   {id:"hours",type:"text",l:"Horario de atención (incluye fines de semana)",wa:"Horario"},
+   {id:"crm",type:"radio",l:"¿Usan CRM?",wa:"CRM",o:["GoHighLevel","HubSpot","Excel / Google Sheets","Solo WhatsApp","Otro"]},
+   {id:"filter",type:"area",l:"¿Qué datos piden para cotizar? (edad, renta, isapre actual, cargas, comuna…)",wa:"Datos para cotizar"},
+   {id:"script",type:"area",l:"¿Tienen guion o mensaje de bienvenida? Pégalo aquí",wa:"Guion actual"}
+  ]},
+ {title:"Marketing actual",
+  qs:[
+   {id:"ads_before",type:"radio",l:"¿Han hecho anuncios pagados antes?",wa:"Ads previos",o:["Sí, Meta","Sí, Google","Sí, ambos","Sí, TikTok","Nunca"]},
+   {id:"ads_result",type:"area",l:"Si sí: presupuesto, costo por lead y qué funcionó / qué no",wa:"Resultado ads previos"},
+   {id:"assets",type:"check",l:"¿Qué tienen listo?",wa:"Activos",
+    o:["Business Manager","Cuenta publicitaria activa","Pixel / Dataset instalado","WhatsApp Business","Página web","Reseñas en Google","Testimonios en video","Logos y manual de marca"]},
+   {id:"verified",type:"radio",l:"¿La cuenta publicitaria ha tenido bloqueos o rechazos?",wa:"Bloqueos de cuenta",o:["Nunca","Sí, alguna vez","Sí, ahora mismo","No sé"]},
+   {id:"competitors",type:"area",l:"Competidores o cuentas que ven seguido (asesores, agencias, comparadores)",wa:"Competencia"},
+   {id:"likes",type:"area",l:"Anuncios o cuentas que les gustan (de cualquier rubro) y por qué",wa:"Referentes"}
+  ]},
+ {title:"Contenido y cámara",
+  intro:"En esta categoría gana la confianza: una cara humana explicando bien vende más que un diseño bonito.",
+  qs:[
+   {id:"face",type:"text",l:"¿Quién aparecería en cámara? Nombre y rol",wa:"Rostro en cámara"},
+   {id:"camera",type:"radio",l:"Nivel de comodidad frente a cámara",wa:"Comodidad en cámara",o:["Muy cómodo","Puedo hacerlo","Me cuesta","Prefiero no aparecer"]},
+   {id:"recording",type:"radio",l:"¿Cómo grabamos?",wa:"Modalidad grabación",o:["Presencial en Chile","Remoto: grabo yo con guía","Mixto"]},
+   {id:"tone",type:"check",l:"Tono de la marca",wa:"Tono",o:["Cercano / de tú","Formal / de usted","Educativo","Directo y vendedor","Con humor"]},
+   {id:"brands",type:"radio",l:"¿Pueden usar nombres o logos de las isapres en los anuncios?",wa:"Uso de marcas isapre",o:["Sí, tenemos autorización","No","No sé"]},
+   {id:"forbidden",type:"area",l:"Cosas que NO se pueden decir o prometer (por la isapre, la ley o su criterio)",wa:"Prohibido decir"},
+   {id:"material",type:"area",l:"Material disponible: fotos, videos, capturas de reseñas, prensa",wa:"Material disponible"}
+  ]},
+ {title:"Cierre",
+  qs:[
+   {id:"success",type:"area",l:"¿Qué tendría que pasar en 90 días para que digan “esto funcionó”?",wa:"Éxito a 90 días"},
+   {id:"fears",type:"area",l:"¿Qué les preocupa de hacer publicidad?",wa:"Preocupaciones"},
+   {id:"approver",type:"text",l:"¿Quién aprueba guiones y anuncios? ¿En cuánto tiempo responden?",wa:"Aprobación"},
+   {id:"other",type:"area",l:"Algo más que debamos saber",wa:"Otros"}
+  ]}
+];
+
+let data = {}, step = 0;
+try{ const s = JSON.parse(localStorage.getItem(STORE_KEY)||'{}'); data = s.data||{}; step = s.step||0; }catch(e){}
+function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify({data,step})); }catch(e){} }
+const form = document.getElementById('form');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function field(q){
+  const v = data[q.id];
+  const h = q.h ? `<span class="h">${esc(q.h)}</span>` : '';
+  let input;
+  if(q.type==='area') input = `<textarea name="${q.id}">${esc(v||'')}</textarea>`;
+  else if(q.type==='radio' || q.type==='check'){
+    const t = q.type==='radio'?'radio':'checkbox';
+    input = `<div class="opts">` + q.o.map(o => {
+      const on = q.type==='radio' ? v===o : (Array.isArray(v) && v.includes(o));
+      return `<label><input type="${t}" name="${q.id}" value="${esc(o)}" ${on?'checked':''}>${esc(o)}</label>`;
+    }).join('') + `</div>`;
+  } else input = `<input type="text" name="${q.id}" value="${esc(v||'')}">`;
+  return `<div class="q"><label class="l">${esc(q.l)}</label>${h}${input}</div>`;
+}
+function progress(){
+  const total = STEPS.length + 1, n = Math.min(step+1,total);
+  document.getElementById('bar').style.width = (n/total*100)+'%';
+  document.getElementById('stepinfo').textContent = step < STEPS.length ? `Paso ${n} de ${STEPS.length}` : 'Revisión final';
+  document.getElementById('pct').textContent = Math.round(n/total*100)+'%';
+}
+function render(){
+  progress(); window.scrollTo({top:0,behavior:'smooth'});
+  if(step >= STEPS.length) return renderReview();
+  const s = STEPS[step];
+  form.innerHTML = `<h2>${esc(s.title)}</h2>${s.intro?`<p class="intro">${esc(s.intro)}</p>`:''}` +
+    s.qs.map(field).join('') +
+    `<div class="nav">${step>0?'<button type="button" class="btn" id="back">Atrás</button>':'<span></span>'}
+     <button type="button" class="btn p" id="next">${step===STEPS.length-1?'Revisar y enviar':'Siguiente'}</button></div>`;
+  form.oninput = form.onchange = collect;
+  const b = document.getElementById('back'); if(b) b.onclick = () => { collect(); step--; save(); render(); };
+  document.getElementById('next').onclick = () => { collect(); step++; save(); render(); };
+}
+function collect(){
+  if(step >= STEPS.length) return;
+  STEPS[step].qs.forEach(q => {
+    if(q.type==='radio'){ const c = form.querySelector(`input[name="${q.id}"]:checked`); data[q.id] = c?c.value:''; }
+    else if(q.type==='check'){ data[q.id] = [...form.querySelectorAll(`input[name="${q.id}"]:checked`)].map(i=>i.value); }
+    else { const el = form.querySelector(`[name="${q.id}"]`); data[q.id] = el?el.value:''; }
+  });
+  save();
+}
+function buildMessage(){
+  let m = `*${TITLE}*\n`;
+  STEPS.forEach((s,i) => {
+    const lines = s.qs.map(q => {
+      let v = data[q.id]; if(Array.isArray(v)) v = v.join(', ');
+      v = (v||'').trim(); return v ? `• ${q.wa}: ${v}` : null;
+    }).filter(Boolean);
+    if(lines.length) m += `\n*${i+1}. ${s.title}*\n` + lines.join('\n') + '\n';
+  });
+  return m.trim();
+}
+function renderReview(){
+  const msg = buildMessage();
+  form.innerHTML = `<h2>Revisar y enviar</h2>
+    <p class="intro">Este es el resumen. Al tocar el botón verde se abre WhatsApp con todo escrito: solo dale enviar.</p>
+    <div class="review">${esc(msg)}</div>
+    <div class="actions">
+      <button type="button" class="btn wa" id="wa">Enviar por WhatsApp</button>
+      <button type="button" class="btn" id="copy">Copiar respuestas</button>
+      <button type="button" class="btn" id="dl">Descargar .txt</button>
+    </div>
+    <p class="note">Si el mensaje es muy largo y WhatsApp lo corta, usa “Copiar respuestas” y pégalo en el chat, o envía el .txt.</p>
+    <div class="nav"><button type="button" class="btn" id="back">Atrás</button><span></span></div>`;
+  document.getElementById('back').onclick = () => { step--; save(); render(); };
+  document.getElementById('wa').onclick = () => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
+  document.getElementById('copy').onclick = async e => {
+    try{ await navigator.clipboard.writeText(msg); }catch(err){
+      const ta=document.createElement('textarea');ta.value=msg;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();
+    }
+    e.target.textContent = 'Copiado ✓';
+  };
+  document.getElementById('dl').onclick = () => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([msg.replace(/\*/g,'')],{type:'text/plain'}));
+    a.download = 'onboarding-asesorias-isapre.txt'; a.click();
+  };
+}
+render();
+</script>
+</body>
+</html>
